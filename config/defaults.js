@@ -1,6 +1,4 @@
-var Sidebar = {
-  version: "0.9.6"
-}
+var Sidebar = {}
 Sidebar.config = {
   BUG_SERVER_SCRIPT_URL: 'http://www.bug.hr/forum/tasks/?n=connect',
   BUG_TOPIC_URL: '/forum/topicunread/',

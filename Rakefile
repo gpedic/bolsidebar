@@ -1,8 +1,12 @@
 require 'rake'
-require 'rake/packagetask'
 require 'yaml'
 
-module SidebarMake
+module Sidebar
+  VERSION =  "1.9.6"
+  YEAR = Time.new.year
+end
+
+module SidebarHelper
   ROOT_DIR   = File.expand_path(File.dirname(__FILE__))
 	SOURCE_DIR    = File.join(ROOT_DIR, 'app')
   CONFIG_DIR   = File.join(ROOT_DIR, 'config')
@@ -77,8 +81,8 @@ module SidebarMake
 	  environment.append_path SOURCE_DIR
     environment.append_path CONFIG_DIR
     
-    source = environment.find_asset(options[:source])
-    source.write_to(options[:destination])
+    source = environment.find_asset("bugsidebar.user.js.erb")
+    source.write_to(File.join(options[:destination],options[:source]))
   end
 end
 
@@ -87,3 +91,5 @@ desc "Builds the distribution."
 task :build do
   SidebarHelper.sprocketize
 end
+
+task :default => [:build]

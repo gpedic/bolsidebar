@@ -1,2 +1,0 @@
-//= require "icons"
-//= require "css"

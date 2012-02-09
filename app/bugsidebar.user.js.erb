@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2012 Goran Pedić
+ Copyright (c) <%= Sidebar::YEAR %> Goran Pedić
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -22,7 +22,7 @@
 
 // ==UserScript==
 // @name           BugSidebar
-// @version        0.9.6
+// @version        <%= Sidebar::VERSION %>
 // @description    Sidebar sa aktivnim temama za BOL forum.
 // @namespace      http://www.bug.hr/forum/
 // @match          http://www.bug.hr/forum/*
@@ -32,18 +32,15 @@
 // @author         drnde (http://www.bug.hr/forum/user/drnde/6251.aspx)
 // ==/UserScript==
 
-// Load default sidebar configuration settings
-//= require "../config/defaults"
+//= require_self
+//= require "defaults"
 
-// Load sidebar app
-//= require "lib/libs"
-//= require "models/models"
-//= require "controllers/controllers"
+//= require "libs"
+//= require "models"
+//= require "controllers"
 //= require "lib/router"
-//= require "helpers/helpers"
-//= require "assets/assets"
-//= require "views/views"
+//= require "helpers"
+//= require "assets"
+//= require "views"
 
-// Set up the main scheduler and init sidebar
-//= require "../config/initializers/scheduler"
-
+//= require "initializers/scheduler"
