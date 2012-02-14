@@ -72,7 +72,7 @@ module SidebarHelper
   
   def self.sprocketize(options = {})
     options = {
-      :destination    => BUILD_DIR,
+      :destination => BUILD_DIR,
       :source => 'bugsidebar.user.js'
     }.merge(options)
     

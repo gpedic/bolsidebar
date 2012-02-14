@@ -23,10 +23,6 @@
 				
 	topicViewPanel.innerHTML = topicViewContent;
 	$("sidebarBody").appendChild(topicViewPanel);
-  
-  //init sidebar
-  //Topic.pull(Sidebar.config.BUG_SERVER_SCRIPT_URL);
-  $("topicButtons").addEventListener("click",TopicController.change_mode, false);
 })();
 
 var TopicView = (function(){

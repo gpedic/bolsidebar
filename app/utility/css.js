@@ -1,7 +1,6 @@
 /** 
 * @projectDescription  CSS Utility Class.
 *
-* @author   gpedic@gmail.com
 * @version  1.0 
 */
 

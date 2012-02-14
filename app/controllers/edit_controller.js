@@ -1,7 +1,6 @@
 /** 
  * @projectDescription  EditController.
  *
- * @author   gpedic@gmail.com
  * @version  1.0 
  */
 
@@ -10,7 +9,6 @@
  * 
  * @classDescription Controller used by EditView.
  * @type {Object}
- * @constructor
  */
 
 var EditController = (function(){
@@ -47,24 +45,3 @@ var EditController = (function(){
 
 Topic.subscribe(EditController.show,"loaded");
 Blocklist.subscribe(EditController.reload,"change");
-
-/*
-    execute : function(event) {
-      var target = event.target;
-  		var idAttr = target.getAttribute("id"); 
-      if(!isNaN(idAttr) && idAttr != "000" && idAttr != "111"){
-        
-      }
-      else if (target.nodeName == "li"){
-        Blocklist.toggle(idAttr);
-      }
-      else if (idAttr == "confirm_edits_button"){
-        Blocklist.save();
-        Route.to("topics");
-      }
-      else if (idAttr == "cancel_edits_button"){
-        Blocklist.reload();
-        Route.to("topics");
-      }
-    } 
-*/

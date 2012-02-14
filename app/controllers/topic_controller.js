@@ -14,9 +14,6 @@ var TopicController = (function(){
     reload: function(){
       TopicView.render(_cache);
     },
-    change_mode: function(mode){
-      
-    },
     toggle_indicator: function(){
       TopicView.indicate();
     }
@@ -30,5 +27,3 @@ Topic.subscribe(function(json){
 },"loaded");
 Options.subscribe(TopicController.reload,"mode");
 Blocklist.subscribe(TopicController.reload,"saved");
-
-

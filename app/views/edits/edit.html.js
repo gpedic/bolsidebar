@@ -1,7 +1,6 @@
 /** 
  * @projectDescription  EditView.
  *
- * @author   gpedic@gmail.com
  * @version  1.0 
  */
 
