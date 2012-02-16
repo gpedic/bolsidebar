@@ -1,20 +1,4 @@
-/** 
- * @projectDescription  EditModel.
- *
- * @author   gpedic@gmail.com
- * @version  0.8 
- */
 
-/**
- * Model used by the Edit plugin.
- * 
- * @classDescription Model used by the EditView and EditController.
- * @type {Object}
- * 
- */
-/**
- * { topicId: "topicName", topicId: "topicName" }
- */
 var TopicsSettingsList = function(label){
   var load = function(label){ 
     return JSON.parse(Sidebar.storage.read(label)) || {}; 

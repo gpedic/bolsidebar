@@ -1,3 +1,4 @@
+
 var Status = (function(){
   var viewChanged = Sidebar.event();
   var view = "topic";

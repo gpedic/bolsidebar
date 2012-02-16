@@ -9,6 +9,7 @@
 	  <div id="sidebarHeader" class="sidebar"> \
 		  <span><a id="sidebarTitle">Nove poruke </a></span> \
 			<a href="#/minimize"><span id="minimizeButton" class="headerButton"></span></a> \
+      <a href="#/edits"><span id="editButton" class="headerButton"></span></a>\
 		</div> \
 		<div id="sidebarBody" class="content alt sidebarcontent"> \
 		</div>';

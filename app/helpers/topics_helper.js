@@ -21,9 +21,7 @@ var TopicHelper = {
           topicsArr.push(Topic(topicsShema[type].ids[topic], topicsShema[type].topicNames[topic], type));
         }
       }
-    } else {
-      topicsArr.push(Topic("000","Trenutno niste prijavljeni","info"));
     }
-  return topicsArr.length ? topicsArr : [Topic("111","Nema nepročitanih tema","info")];
+  return topicsArr;
   }
 }

@@ -1,6 +1,4 @@
-/**
- * Topic class
- */
+
 var Topic = function(newId,newName,newType){
   //set topic properties
   var name = newName || "";
@@ -11,6 +9,9 @@ var Topic = function(newId,newName,newType){
     getId: function(){ return id; },
     getName: function(){ return name; },
     getType: function(){ return type; },
+    id: function(){ return id; },
+    name: function(){ return name; },
+    type: function(){ return type; },
     toObj: function(){
       return {
           "id": id,
@@ -65,3 +66,4 @@ Topic.pull = function(url){
 		} 
     Topic.events.started.notify();    
 };
+

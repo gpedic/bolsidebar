@@ -1,5 +1,5 @@
+
 //Create CSS used by the BugSidebar
-//408DCF #C0C0C0
 var generateCss = (function(){
 	Sidebar.css.inject('\
   /* Sidebar Header */\
@@ -54,18 +54,24 @@ var generateCss = (function(){
     clear:both; \
   } \
 	#sidebarBody .optionsButtonContainer { \
-    background-color:#919791; \
     padding:4px; \
   } \
-	#sidebarBody .optionsButton { \
-    color:#408DCF; \
+	#sidebarBody .optionsButton a { \
     font-weight:bold; \
+    text-decoration: none; \
+    color:#408DCF; \
     cursor:pointer; \
+    padding: 0 6px; \
+    margin-right: 5px; \
     float:right; \
     border:#C0C0C0 1px solid; \
     width:54px; \
     text-align:center; \
   } \
+  #sidebarBody .optionsButton a:hover {\
+    border-color: #888; \
+    color: #58595A; \
+  }\
 	#sidebarBody ul li a:hover {color: #669FCC} \
 	#sidebarRefresh {height: 17px; width: 24px; float: right;} \
 	\
@@ -75,6 +81,8 @@ var generateCss = (function(){
 	-moz-border-radius: 4px 4px 0px 0px; border-radius: 4px 4px 0px 0px; \
 	} \
 	.sidebarContentButton:hover { border-color:#669FCC; color:#669FCC; } \
+  .sidebarContentButton.active { border-color:#E3A64A; color:#E3A64A; } \
+  .sidebarContentButton.active:hover { border-color:#669FCC; color:#669FCC; } \
 	#topicView #topics {padding:5px;} \
   #topicButtons { height:17px; margin-top:2px; background-color: #EEEEE7; }\
 	#topicButtons .selected{ border-color:#fcd61a; color:#FCD61A; } \
@@ -95,7 +103,8 @@ var generateCss = (function(){
 	#editMenu .editNavButton a { margin-top:10px; } \
 	#editMenu #editMenuBlock { border-right: 2px; } \
 	#editMenu #editMenuPaint {} \
-	#editView .editDescriptionBar { \
+	#editView .editSeperator { \
+    color: #EEEEE7; \
     margin-top:2px; \
     font-weight:bold; \
     text-align:center; \

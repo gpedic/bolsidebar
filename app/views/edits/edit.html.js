@@ -4,11 +4,6 @@
  * @version  1.0 
  */
 
-/**
- * Self executing function that creates the EditView GUI.
- * 
- * @alias initEditViewTemplate
- */
 (function() {
 
 	var editViewPanel = document.createElement("div");
@@ -22,33 +17,21 @@
 					<div style="clear:both;"> </div> \
 				</div> \
 				<div id="editTopics"> \
-					<div class="editDescriptionBar">Aktivne teme</div>\
+					<div class="editSeperator">Aktivne teme</div>\
 					<ul id="editActiveList"></ul> \
-					<div class="editDescriptionBar">Blokirane teme</div>\
+					<div class="editSeperator">Blokirane teme</div>\
 					<ul id="editBlockedList"></ul> \
 				</div>\
 				<div class="optionsButtonContainer">\
-					<div id="confirm_edits_button" class="optionsButton"><a href="#/edits/save"> Natrag </a></div> \
-					<div style="width:5px; height:5px; float:right;"></div> \
-					<!-- <div id="cancel_edits_button" class="optionsButton"><a href="#/edits/discard"> Odustani </a></div> --> \
+					<!--<div id="cancel_edits_button" class="optionsButton"><a href="#/edits/discard"> Odustani </a></div>--> \
+					<!--<div style="width:5px; height:5px; float:right;"></div>--> \
+					<div id="confirm_edits_button" class="optionsButton"><a href="#/edits/save"> Prihvati </a></div> \
 					<div style="clear:both;"></div> \
 				</div>';
 
-	// Insert editViewContent into the editViewPanel element and append it to
-	// sidebarBody
 	editViewPanel.innerHTML = editViewContent;
 	$("sidebarBody").appendChild(editViewPanel);
 
-	// Add Button for EditView in sidebarFrame
-	// <div id="editButton"></div>
-	var editViewButton = document.createElement("span");
-	editViewButton.setAttribute("id", "editButton");
-  editViewButton.setAttribute("class", "headerButton");
-  
-	$("sidebarHeader").appendChild(editViewButton);
-  
-  $("editButton").addEventListener("click",function(){Router.to_path("edits");}, false);
-  //$("confirm_edits_button").addEventListener("click",function(){Router.to_path("save_edits");}, false);
 })();
 
 
@@ -56,7 +39,7 @@ var EditView = (function(){
   var viewName = "edit";
   var composer = function(id,name){
       return ["<li id=edit_", id,">",
-      "<a href='#/toggle/", id, "'>", 
+      "<a href='#/toggle/", id, "/",Sidebar.util.encode(name),"'>", 
         name, "</a></li>"].join("");
   };
   
@@ -69,19 +52,23 @@ var EditView = (function(){
       var topicSet = {};
       
       for(var idx=0; idx < topics.length; idx++){
-        topicSet[topics[idx].getId()] = topics[idx].getName();
+        topicSet[topics[idx].id()] = topics[idx].name();
       }
-           
+      
+      for(var id in blocklist){
+         blocked.push(composer(id,Sidebar.util.decode(blocklist[id])));
+      }
+             
       for(var topicId in topicSet){    
-        if(blocklist.hasOwnProperty(topicId)){
-          blocked.push(composer(topicId,topicSet[topicId]));
-        }
-        else {
+        if(!blocklist.hasOwnProperty(topicId)){
           active.push(composer(topicId,topicSet[topicId]));
         }
       }
     $("editActiveList").innerHTML = active.join("");
     $("editBlockedList").innerHTML = blocked.join("");
+    
+    if(Sidebar.ENV === "test" || Sidebar.ENV === "development")
+        return {"input": topics, "processed": topicSet, "rendered": {"active":active , "blocked": blocked}};
     },
     toggle: function(view){
       view === viewName ? $("editView").style.display = "block" :

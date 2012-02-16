@@ -9,7 +9,7 @@ var routes = {
   "discard_edits": { route: "#/edits/discard", run: EditController.discard_edits },
   "new_refresh_interval": { route: "#/options/refresh/:interval", run: OptionsController.update },
   "new_show_mode": { route: "#/options/show/:mode", run: OptionsController.update },
-  "block_toggle": { route: "#/toggle/:id", run: EditController.toggle_block },
+  "block_toggle": { route: "#/toggle/:id/:name", run: EditController.toggle_block },
   "minimize_toggle": { route: "#/minimize", run: OptionsController.toggle_minimize }
 };
 

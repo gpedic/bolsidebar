@@ -1,15 +1,3 @@
-/** 
- * @projectDescription  EditController.
- *
- * @version  1.0 
- */
-
-/**
- * Controller used by EditView.
- * 
- * @classDescription Controller used by EditView.
- * @type {Object}
- */
 
 var EditController = (function(){
   var _cache = null;
@@ -29,7 +17,7 @@ var EditController = (function(){
     toggle_block: function(params){
       if(params && params.hasOwnProperty("id")){
         if(params.id !== "000" && params.id !== "111")
-          Blocklist.toggle(params.id,"");
+          Blocklist.toggle(params.id,params.name);
       }
     },
     save_edits: function(){

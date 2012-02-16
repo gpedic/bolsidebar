@@ -2,15 +2,17 @@ require 'rake'
 require 'yaml'
 
 module Sidebar
-  VERSION =  "1.9.6"
+  VERSION =  "2.0.1"
   YEAR = Time.new.year
+  ENV = 'production'
 end
 
 module SidebarHelper
-  ROOT_DIR   = File.expand_path(File.dirname(__FILE__))
-	SOURCE_DIR    = File.join(ROOT_DIR, 'app')
+  ROOT_DIR     = File.expand_path(File.dirname(__FILE__))
+	SOURCE_DIR   = File.join(ROOT_DIR, 'app')
   CONFIG_DIR   = File.join(ROOT_DIR, 'config')
 	BUILD_DIR	   = File.join(ROOT_DIR, 'build')
+  TEST_DIR	   = File.join(ROOT_DIR, 'test')
   
   def self.has_git?
     begin
@@ -24,7 +26,7 @@ module SidebarHelper
   def self.require_git
     return if has_git?
     puts <<-git_message
-      BugSidebar requires Git in order to load its dependencies.
+      BolSidebar requires Git in order to load its dependencies.
       Make sure you've got Git installed and in your path.
       For more information, visit:
       http://book.git-scm.com/2_installing_git.html
@@ -73,15 +75,16 @@ module SidebarHelper
   def self.sprocketize(options = {})
     options = {
       :destination => BUILD_DIR,
-      :source => 'bugsidebar.user.js'
+      :source => 'bolsidebar.user.js'
     }.merge(options)
     
     require_sprockets
     environment = Sprockets::Environment.new
+    environment.append_path ROOT_DIR
 	  environment.append_path SOURCE_DIR
     environment.append_path CONFIG_DIR
-    
-    source = environment.find_asset("bugsidebar.user.js.erb")
+        
+    source = environment.find_asset("bolsidebar.user.js.erb")
     source.write_to(File.join(options[:destination],options[:source]))
   end
 end

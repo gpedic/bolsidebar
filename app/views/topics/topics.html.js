@@ -10,13 +10,13 @@
 			</div> \
 			<div id="topicButtons" class="contentButtons"> \
 				<a href="#/options/show/both">\
-          <span title="Sve teme" class="sidebarContentButton">SP</span>\
+          <span title="Sve teme" id="topic_both" class="sidebarContentButton">SP</span>\
         </a> \
 				<a href="#/options/show/contrib">\
-          <span title="Teme u kojima sudjelujem" class="sidebarContentButton">S</span>\
+          <span title="Teme u kojima sudjelujem" id="topic_contrib" class="sidebarContentButton">S</span>\
         </a> \
 				<a href="#/options/show/fav">\
-          <span title="Teme koje pratim" class="sidebarContentButton">P</span>\
+          <span title="Teme koje pratim" id="topic_fav" class="sidebarContentButton">P</span>\
         </a> \
         <div id="loading_anim" style="display:none;"></div>\
 			</div>';
@@ -27,52 +27,74 @@
 
 var TopicView = (function(){
   var viewName = "topic";
-  var topicSet = {"both":{},"fav":{},"contrib":{}, "info":{}};
+  var mode = null;
+  var topicSet = null;//{"both":[],"fav":[],"contrib":[], "info":[]};
   var active = [];
-  var composer = function(id,name){
-    return ["<li id=topic_", id,">",
-      "<a href='http://www.bug.hr/forum/topicunread/", id, ".aspx'>", 
-        name, "</a></li>"].join("");
+  var topics = null;
+  var cache = null;
+  var composer = function(topic){
+    return ["<li><a href='/forum/topicunread/", topic.id(), ".aspx'>", topic.name(), "</a></li>"].join("");
+        
   };
-  
+  //http://www.bug.hr
   return {
-    render: function(topics){
+    render: function(topicsJson){
       active.length = 0;
-      topics = TopicHelper.transform(topics);
-      
-      var mode = Options.getShowMode();
-      var blocklist = Blocklist.get();
-      console.log("blocklist ", blocklist)      
-      for(var idx=0; idx < topics.length; idx++){
-        if(!blocklist.hasOwnProperty(topics[idx].getId())){
-          topicSet.both[topics[idx].getId()] = topics[idx].getName();      
-          var type = topicSet[topics[idx].getType()];
-          type[topics[idx].getId()] = topics[idx].getName();
+      if(topicsJson !== cache){
+        
+        cache = topicsJson;
+        topics = TopicHelper.transform(topicsJson);
+        topicSet = {
+          "both":[],
+          "fav":[],
+          "contrib":[] 
+        };
+        
+        for(var idx=0; idx < topics.length; idx++){
+            topicSet[topics[idx].type()].push(topics[idx].id());
         }
+        topicSet["both"] = Sidebar.util.distinct(topicSet["fav"].concat(topicSet["contrib"])).reverse();
       }
-      //if(!Sidebar.util.objectEmpty(topicSet.info)){
-        for(var topicId in topicSet[mode]){    
-          active.push(composer(topicId,topicSet[mode][topicId]));
-        }
-        console.log("Active ", active)
-      //} else {
-      //  for(var topicId in topicSet.info){
-      //    active.push(composer(topicSet.info[hash]));
-      //  }        
-      //}
 
+      if(mode !== Options.getShowMode()){
+        mode = Options.getShowMode();
+        this.toggleButtons();
+      } 
+      var blocklist = Blocklist.get();
+        
+      for(var idx = 0, ts_length = topicSet[mode].length; idx < ts_length; idx++)
+        for(var idy = 0, t_length = topics.length; idy < t_length; idy++)
+          if( topics[idy].id() === topicSet[mode][idx] && !blocklist.hasOwnProperty(topics[idy].id()) )
+            active.push(composer(topics[idy]));
+      
+      if(active.length === 0)
+        active = ["<li style='text-align:center;'><a href='#/sidebar'>Trenutno nema aktivnih tema</a></li>"];
+      
+        
       $("sidebarTopics").innerHTML = active.join("");
+      
+      if(Sidebar.ENV === "test" || Sidebar.ENV === "development")
+          return {"input": topics, "processed": topicSet, "rendered": active};
     },
     toggle: function(view){
       view === viewName ? $("topicView").style.display = "block" :
         $("topicView").style.display = "none";
     },
+    toggleButtons: function(){
+      var buttons = document.getElementsByClassName("sidebarContentButton");
+      for(var idx = 0; idx < buttons.length; idx++ ){
+        if(buttons[idx].id.indexOf(mode) !== -1){
+          Sidebar.util.addClass(buttons[idx],"active");
+        }
+        else {
+          Sidebar.util.removeClass(buttons[idx],"active");   
+        }             
+      }
+    },
     indicate: function(){
       var loading_anim = $("loading_anim");
-      //loading_anim.style.display = "block";
-      //setTimeout(function(){loading_anim.style.display = "none"},1000)
-      /*loading_anim.style.display === "none" ? loading_anim.style.display = "block" :
-      loading_anim.style.display = "none";*/
+      loading_anim.style.display = "block";
+      setTimeout(function(){loading_anim.style.display = "none"},1200);
     }
   }
 })();
