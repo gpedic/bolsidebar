@@ -739,8 +739,8 @@ ZGmeqEAMRTEQwskYbV0Yx7kYSIzQhtgoBxCKBDQCIOcoLBimRiFhSABYU5gIgW01pLUBYkRItAYA\
 qrlhYiwKjiWAcDMWY8QjsCf4DewiBzQ2N1AmKlgvgCiMjSQhACH5BAkKAAAALAAAAAAQABAAAAVf\
 ICCOZGmeqEgUxUAIpkA0AMKyxkEiSZEIsJqhYAg+boUFSTAkiBiNHks3sg1ILAfBiS10gyqCg0Ua\
 FBCkwy3RYKiIYMAC+RAxiQgYsJdAjw5DN2gILzEEZgVcKYuMJiEAOwAAAAAAAAAAAA==";
+
 //Create CSS used by the BugSidebar
-//408DCF #C0C0C0
 var generateCss = (function(){
 	Sidebar.css.inject('\
   /* Sidebar Header */\
@@ -969,8 +969,11 @@ var TopicView = (function(){
         
       for(var idx = 0, ts_length = topicSet[mode].length; idx < ts_length; idx++)
         for(var idy = 0, t_length = topics.length; idy < t_length; idy++)
-          if( topics[idy].id() === topicSet[mode][idx] && !blocklist.hasOwnProperty(topics[idy].id()) )
+          if( topics[idy].id() === topicSet[mode][idx] && !blocklist.hasOwnProperty(topics[idy].id()) ){
             active.push(composer(topics[idy]));
+            break;
+          }
+            
       
       if(active.length === 0)
         active = ["<li style='text-align:center;'><a href='#/sidebar'>Trenutno nema aktivnih tema</a></li>"];

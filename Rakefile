@@ -2,7 +2,7 @@ require 'rake'
 require 'yaml'
 
 module Sidebar
-  VERSION =  "2.0.1"
+  VERSION =  "2.0.2"
   YEAR = Time.new.year
   ENV = 'production'
 end
