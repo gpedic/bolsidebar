@@ -84,7 +84,7 @@ var generateCss = (function(){
   .sidebarContentButton.active { border-color:#E3A64A; color:#E3A64A; } \
   .sidebarContentButton.active:hover { border-color:#669FCC; color:#669FCC; } \
 	#topicView #topics {padding:5px;} \
-  #topicButtons { height:17px; margin-top:2px; background-color: #EEEEE7; }\
+  #topicButtons { height:17px; margin-top:2px; }\
 	#topicButtons .selected{ border-color:#fcd61a; color:#FCD61A; } \
 	#topicButtons .selected:hover { border-color:#669FCC; color:#669FCC; } \
   #topicButtons a { text-decoration:none; }\
