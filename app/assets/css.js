@@ -7,12 +7,12 @@ var generateCss = (function(){
 	#sidebarHeader { \
     padding: 7px 10px 5px;\
     height:18px; \
-		background: #ffdb1a; /* Old browsers */ \
-		background: -moz-linear-gradient(top, #ffdb1a 0%, #e3a64a 100%); /* FF3.6+ */ \
-		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffdb1a), color-stop(100%,#e3a64a)); /* Chrome,Safari4+ */ \
-		background: -webkit-linear-gradient(top, #ffdb1a 0%,#e3a64a 100%); /* Chrome10+,Safari5.1+ */ \
-		background: -o-linear-gradient(top, #ffdb1a 0%,#e3a64a 100%); /* Opera 11.10+ */ \
-		background: linear-gradient(top, #ffdb1a 0%,#e3a64a 100%); /* W3C */ \
+		background: #909090; /* Old browsers */ \
+		background: -moz-linear-gradient(top, #909090 0%, #4c4c4c 100%); /* FF3.6+ */ \
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#909090), color-stop(100%,#4c4c4c)); /* Chrome,Safari4+ */ \
+		background: -webkit-linear-gradient(top, #909090 0%,#4c4c4c 100%); /* Chrome10+,Safari5.1+ */ \
+		background: -o-linear-gradient(top, #909090 0%,#4c4c4c 100%); /* Opera 11.10+ */ \
+		background: linear-gradient(top, #909090 0%,#4c4c4c 100%); /* W3C */ \
 		} \
   #sidebarTitle { \
     font-size: 14px; \
