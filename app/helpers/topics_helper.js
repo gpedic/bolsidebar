@@ -13,12 +13,15 @@ var TopicHelper = {
 
     if (topicsObj.r === "0"){     
       var topicsShema = { 
-        "fav": { topicNames: topicsObj.newFavTopicList, ids: topicsObj.newFavTopicListIDs },
-        "contrib": {topicNames: topicsObj.newContribTopicList, ids: topicsObj.newContribTopicListIDs}
-      }     
+        "fav": { count: parseInt(topicsObj.numNewFavMessages), topicNames: topicsObj.newFavTopicList, ids: topicsObj.newFavTopicListIDs},
+        "contrib": {count: parseInt(topicsObj.numNewContribMessages), topicNames: topicsObj.newContribTopicList, ids: topicsObj.newContribTopicListIDs}
+      }
+
       for(var type in topicsShema){
-        for(var topic in topicsShema[type].topicNames){
-          topicsArr.push(Topic(topicsShema[type].ids[topic], topicsShema[type].topicNames[topic], type));
+        if(topicsShema[type].count > 0){
+          for(var topic in topicsShema[type].topicNames){
+            topicsArr.push(Topic(topicsShema[type].ids[topic], topicsShema[type].topicNames[topic], type));
+          }
         }
       }
     }

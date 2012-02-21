@@ -22,7 +22,7 @@
 
 // ==UserScript==
 // @name           BOLSidebar
-// @version        2.0.2
+// @version        2.0.4
 // @description    Sidebar sa aktivnim temama za BOL forum.
 // @namespace      http://www.bug.hr/forum/
 // @match          http://www.bug.hr/forum/*
@@ -31,6 +31,17 @@
 // @exclude        http://www.bug.hr/forum/newpost/*
 // @author         drnde (http://www.bug.hr/forum/user/drnde/6251.aspx)
 // ==/UserScript==
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -245,6 +256,14 @@ Sidebar.storage = (function(){
     }    
   };
 })();
+
+
+
+
+
+
+
+
 
 var Status = (function(){
   var viewChanged = Sidebar.event();
@@ -462,6 +481,10 @@ var TopicsSettingsList = function(label){
 var Blocklist = new TopicsSettingsList("blocklist");
 var Colorlist = new TopicsSettingsList("colorlist");
 
+
+
+
+
 var ApplicationController = (function(){
   return{
 	  minimize : function (minimized){
@@ -554,6 +577,10 @@ var EditController = (function(){
 
 Topic.subscribe(EditController.show,"loaded");
 Blocklist.subscribe(EditController.reload,"change");
+
+
+
+
 var routes = {
   "default": { route:"#/", run: TopicController.show },
   "topics": { route:"#/topics", run: function(){Status.setView("topic");} },
@@ -645,12 +672,15 @@ var TopicHelper = {
 
     if (topicsObj.r === "0"){     
       var topicsShema = { 
-        "fav": { topicNames: topicsObj.newFavTopicList, ids: topicsObj.newFavTopicListIDs },
-        "contrib": {topicNames: topicsObj.newContribTopicList, ids: topicsObj.newContribTopicListIDs}
-      }     
+        "fav": { count: parseInt(topicsObj.numNewFavMessages), topicNames: topicsObj.newFavTopicList, ids: topicsObj.newFavTopicListIDs},
+        "contrib": {count: parseInt(topicsObj.numNewContribMessages), topicNames: topicsObj.newContribTopicList, ids: topicsObj.newContribTopicListIDs}
+      }
+
       for(var type in topicsShema){
-        for(var topic in topicsShema[type].topicNames){
-          topicsArr.push(Topic(topicsShema[type].ids[topic], topicsShema[type].topicNames[topic], type));
+        if(topicsShema[type].count > 0){
+          for(var topic in topicsShema[type].topicNames){
+            topicsArr.push(Topic(topicsShema[type].ids[topic], topicsShema[type].topicNames[topic], type));
+          }
         }
       }
     }
@@ -865,6 +895,8 @@ var generateCss = (function(){
 //	#optionsButton {margin-right:3px; height:15px; width:15px; background-image:url(data:image/png;base64,'+opt_ico+');}\
 //	#optionsButton:hover {background-image:url(data:image/png;base64,'+opt_ico_hover+');}\
 ;
+
+
 (function(){
 	var rightMenu = $("ctl00_oRightMenu");
 	var sidebarFrame = document.createElement("div");
@@ -1092,6 +1124,9 @@ var EditView = (function(){
 
 Status.subscribe(EditView.toggle,"change")
 ;
+
+
+
 //set up the main scheduler
 if(Sidebar.ENV === 'production'){
   var scheduler = Sidebar.scheduler(Options.getRefreshRate(),Topic.pull,true);
