@@ -2,7 +2,7 @@ require 'rake'
 require 'yaml'
 
 module Sidebar
-  VERSION =  "2.0.4"
+  VERSION =  "3.0.0"
   YEAR = Time.new.year
   ENV = 'production'
 end
@@ -13,7 +13,7 @@ module SidebarHelper
   CONFIG_DIR   = File.join(ROOT_DIR, 'config')
 	BUILD_DIR	   = File.join(ROOT_DIR, 'build')
   TEST_DIR	   = File.join(ROOT_DIR, 'test')
-  
+
   def self.has_git?
     begin
       `git --version`
@@ -22,7 +22,7 @@ module SidebarHelper
       return false
     end
   end
-  
+
   def self.require_git
     return if has_git?
     puts <<-git_message
@@ -33,11 +33,11 @@ module SidebarHelper
     git_message
     exit
   end
-  
+
   def self.get_submodule(name, path)
     require_git
     puts "\nYou seem to be missing #{name}. Obtaining it via git...\n\n"
-    
+
     Kernel.system("git submodule init")
     return true if Kernel.system("git submodule update vendor/#{path}")
     # If we got this far, something went wrong.
@@ -46,7 +46,7 @@ module SidebarHelper
     puts "  $ git submodule update vendor/#{path}"
     false
   end
-  
+
   def self.require_submodule(name, path)
     begin
       require path
@@ -67,23 +67,23 @@ module SidebarHelper
       exit
     end
   end
-  
+
   def self.require_sprockets
     require_submodule('Sprockets', 'sprockets')
   end
-  
+
   def self.sprocketize(options = {})
     options = {
       :destination => BUILD_DIR,
       :source => 'bolsidebar.user.js'
     }.merge(options)
-    
+
     require_sprockets
     environment = Sprockets::Environment.new
     environment.append_path ROOT_DIR
 	  environment.append_path SOURCE_DIR
     environment.append_path CONFIG_DIR
-        
+
     source = environment.find_asset("bolsidebar.user.js.erb")
     source.write_to(File.join(options[:destination],options[:source]))
   end

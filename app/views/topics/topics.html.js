@@ -20,7 +20,7 @@
         </a> \
         <div id="loading_anim" style="display:none;"></div>\
 			</div>';
-				
+
 	topicViewPanel.innerHTML = topicViewContent;
 	$("sidebarBody").appendChild(topicViewPanel);
 })();
@@ -34,22 +34,22 @@ var TopicView = (function(){
   var cache = null;
   var composer = function(topic){
     return ["<li><a href='/forum/topicunread/", topic.id(), ".aspx'>", topic.name(), "</a></li>"].join("");
-        
+
   };
-  //http://www.bug.hr
+
   return {
     render: function(topicsJson){
       active.length = 0;
       if(topicsJson !== cache){
-        
+
         cache = topicsJson;
         topics = TopicHelper.transform(topicsJson);
         topicSet = {
           "both":[],
           "fav":[],
-          "contrib":[] 
+          "contrib":[]
         };
-        
+
         for(var idx=0; idx < topics.length; idx++){
             topicSet[topics[idx].type()].push(topics[idx].id());
         }
@@ -59,23 +59,23 @@ var TopicView = (function(){
       if(mode !== Options.getShowMode()){
         mode = Options.getShowMode();
         this.toggleButtons();
-      } 
+      }
       var blocklist = Blocklist.get();
-        
+
       for(var idx = 0, ts_length = topicSet[mode].length; idx < ts_length; idx++)
         for(var idy = 0, t_length = topics.length; idy < t_length; idy++)
           if( topics[idy].id() === topicSet[mode][idx] && !blocklist.hasOwnProperty(topics[idy].id()) ){
             active.push(composer(topics[idy]));
             break;
           }
-            
-      
+
+
       if(active.length === 0)
         active = ["<li style='text-align:center;'><a href='#/sidebar'>Trenutno nema aktivnih tema</a></li>"];
-      
-        
+
+
       $("sidebarTopics").innerHTML = active.join("");
-      
+
       if(Sidebar.ENV === "test" || Sidebar.ENV === "development")
           return {"input": topics, "processed": topicSet, "rendered": active};
     },
@@ -90,8 +90,8 @@ var TopicView = (function(){
           Sidebar.util.addClass(buttons[idx],"active");
         }
         else {
-          Sidebar.util.removeClass(buttons[idx],"active");   
-        }             
+          Sidebar.util.removeClass(buttons[idx],"active");
+        }
       }
     },
     indicate: function(){
